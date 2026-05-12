@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPEC | Catálogo de Servicios</title>
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg2: #1e1b4b;
+      --primary: #8b5cf6;
+      --primary2: #a78bfa;
+      --green: #22c55e;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.14);
+      --radius: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(180deg, #0f172a, #111827);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(1200px, 90%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary2);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 90px 0;
+      background:
+        radial-gradient(circle at top right, rgba(139,92,246,.35), transparent 35%),
+        linear-gradient(135deg, #0f172a, #2e1065);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--primary2);
+      display: block;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 24px;
+      border-radius: 16px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--primary2);
+    }
+
+    section {
+      padding: 75px 0;
+    }
+
+    .section-title {
+      color: var(--primary2);
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      font-weight: bold;
+      font-size: .85rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 2.3rem;
+      margin-bottom: 18px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      max-width: 800px;
+      margin-bottom: 35px;
+    }
+
+    .about-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-top: 25px;
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary2);
+    }
+
+    .card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 14px;
+      color: white;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .card h4 {
+      margin-top: 18px;
+      margin-bottom: 8px;
+      color: var(--primary2);
+    }
+
+    .card ul {
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .card li {
+      margin-bottom: 7px;
+    }
+
+    .partner-section {
+      background: linear-gradient(135deg, rgba(34,197,94,.10), rgba(139,92,246,.12));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .partner-title {
+      color: #86efac;
+    }
+
+    .partner-card:hover {
+      border-color: #86efac;
+    }
+
+    .price {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(34,197,94,.14);
+      color: #bbf7d0;
+      font-weight: bold;
+      font-size: .9rem;
+    }
+
+    .contact-box {
+      background: linear-gradient(135deg, rgba(139,92,246,.18), rgba(255,255,255,.05));
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 35px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: white;
+      outline: none;
+    }
+
+    textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    button {
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: var(--primary2);
+    }
+
+    #mensajeForm {
+      color: #c4b5fd;
+      min-height: 24px;
+    }
+
+    footer {
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 1000px) {
+      .catalog-grid,
+      .contact-box {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 5%;
+        width: 230px;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 18px;
+        background: #0f172a;
+        border: 1px solid var(--border);
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      .catalog-grid,
+      .contact-box {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">SPEC</div>
+
+        <button class="menu-btn" id="menuBtn">☰</button>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#empresa">Empresa</a></li>
+          <li><a href="#servicios">Servicios SPEC</a></li>
+          <li><a href="#partner">Partnership</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div class="container">
+      <h1>SPEC <span>Soluciones tecnológicas para impulsar tu negocio</span></h1>
+      <p>
+        Catálogo digital de productos y servicios TIC enfocado en apoyar a pequeñas y medianas empresas
+        mediante soluciones accesibles, modernas y funcionales.
+      </p>
+      <a href="#servicios" class="btn">Ver catálogo</a>
+    </div>
+  </section>
+
+  <section id="empresa">
+    <div class="container">
+      <p class="section-title">Empresa</p>
+      <h2>¿Quiénes somos?</h2>
+      <p class="section-description">
+        SPEC, Soluciones para Empresas en Crecimiento, ofrece servicios de Tecnologías de la Información
+        y Comunicación enfocados en la digitalización de PyMEs.
+      </p>
+
+      <div class="about-box">
+        <h3>Misión</h3>
+        <p>
+          Brindar soluciones tecnológicas accesibles, innovadoras y confiables que permitan a las PyMEs
+          mejorar sus procesos, fortalecer su presencia digital y aumentar su competitividad.
+        </p>
+
+        <br>
+
+        <h3>Visión</h3>
+        <p>
+          Ser una empresa líder en soluciones digitales en México, reconocida por impulsar la transformación
+          tecnológica de las PyMEs mediante servicios de alta calidad.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicios">
+    <div class="container">
+      <p class="section-title">Catálogo principal</p>
+      <h2>Productos y servicios propios de SPEC</h2>
+      <p class="section-description">
+        Estos son los servicios principales ofrecidos directamente por SPEC para apoyar la presencia digital,
+        estabilidad tecnológica y crecimiento de las PyMEs.
+      </p>
+
+      <div class="catalog-grid">
+
+        <div class="card">
+          <h3>1. Sitio Web Corporativo</h3>
+          <p>
+            Desarrollo de una página web profesional para empresas, diseñada de manera personalizada.
+            Incluye secciones como inicio, servicios, galería y contacto, además de dominio y hosting por un año.
+          </p>
+
+          <h4>Ventajas</h4>
+          <ul>
+            <li>Mejora la imagen profesional de la empresa.</li>
+            <li>Permite atraer nuevos clientes por internet.</li>
+            <li>Disponible 24/7.</li>
+            <li>Facilita la comunicación con clientes.</li>
+          </ul>
+
+          <h4>Desventajas</h4>
+          <ul>
+            <li>Requiere inversión inicial.</li>
+            <li>Necesita mantenimiento periódico.</li>
+            <li>Dependencia de internet.</li>
+          </ul>
+
+          <h4>Valor agregado</h4>
+          <ul>
+            <li>Diseño moderno y responsivo.</li>
+            <li>Optimización SEO básica.</li>
+            <li>Asesoría personalizada.</li>
+            <li>Adaptado específicamente a PyMEs.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>2. Mantenimiento Web</h3>
+          <p>
+            Servicio enfocado en mantener el sitio web actualizado, seguro y funcionando correctamente.
+            Incluye actualizaciones, respaldos, corrección de errores y monitoreo continuo.
+          </p>
+
+          <h4>Ventajas</h4>
+          <ul>
+            <li>Evita fallas técnicas.</li>
+            <li>Mantiene el sitio actualizado.</li>
+            <li>Mejora la seguridad.</li>
+            <li>Asegura disponibilidad constante.</li>
+          </ul>
+
+          <h4>Desventajas</h4>
+          <ul>
+            <li>Costo mensual o recurrente.</li>
+            <li>Dependencia del proveedor.</li>
+          </ul>
+
+          <h4>Valor agregado</h4>
+          <ul>
+            <li>Monitoreo 24/7.</li>
+            <li>Soporte técnico rápido.</li>
+            <li>Respaldo automático.</li>
+            <li>Prevención de errores.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>3. SEO Local</h3>
+          <p>
+            Servicio orientado a mejorar la visibilidad del negocio en buscadores como Google mediante
+            palabras clave, perfiles empresariales y análisis de resultados.
+          </p>
+
+          <h4>Ventajas</h4>
+          <ul>
+            <li>Aumenta la visibilidad en internet.</li>
+            <li>Genera más clientes potenciales.</li>
+            <li>Mejora la competitividad.</li>
+            <li>Resultados a mediano y largo plazo.</li>
+          </ul>
+
+          <h4>Desventajas</h4>
+          <ul>
+            <li>Resultados no inmediatos.</li>
+            <li>Requiere seguimiento constante.</li>
+            <li>Depende de cambios en algoritmos.</li>
+          </ul>
+
+          <h4>Valor agregado</h4>
+          <ul>
+            <li>Reportes mensuales.</li>
+            <li>Estrategia personalizada.</li>
+            <li>Optimización enfocada en clientes locales.</li>
+            <li>Mejora continua basada en datos.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="partner-section" id="partner">
+    <div class="container">
+      <p class="section-title partner-title">Partnership</p>
+      <h2>Servicios en colaboración con EcoTech Solutions</h2>
+      <p class="section-description">
+        SPEC establece una alianza estratégica con EcoTech Solutions para combinar transformación digital,
+        desarrollo web y marketing tecnológico para PyMEs y negocios ecológicos.
+      </p>
+
+      <div class="catalog-grid">
+
+        <div class="card partner-card">
+          <h3>ES-001 Desarrollo de Sitios Web</h3>
+          <p>
+            Creación de páginas web modernas y atractivas para negocios ecológicos.
+          </p>
+          <h4>Incluye</h4>
+          <ul>
+            <li>Diseño adaptable a celular.</li>
+            <li>Información del negocio.</li>
+            <li>Galería de productos.</li>
+            <li>Formulario de contacto.</li>
+          </ul>
+          <h4>Colaboración</h4>
+          <ul>
+            <li>SPEC aporta SEO básico, soporte y optimización.</li>
+            <li>EcoTech aporta diseño ecológico y UX/UI.</li>
+          </ul>
+        </div>
+
+        <div class="card partner-card">
+          <h3>ES-002 Tienda en Línea</h3>
+          <p>
+            Plataforma digital para vender productos ecológicos por internet.
+          </p>
+          <h4>Incluye</h4>
+          <ul>
+            <li>Catálogo de productos.</li>
+            <li>Carrito de compras.</li>
+            <li>Gestión de precios.</li>
+            <li>Panel administrativo.</li>
+          </ul>
+          <h4>Colaboración</h4>
+          <ul>
+            <li>SPEC configura la tienda, seguridad y mantenimiento.</li>
+            <li>EcoTech diseña la experiencia visual ecológica.</li>
+          </ul>
+          <span class="price">Costo aproximado: $8,000 MXN</span>
+        </div>
+
+        <div class="card partner-card">
+          <h3>ES-003 Sistema de Inventario</h3>
+          <p>
+            Herramienta digital para registrar y controlar productos disponibles.
+          </p>
+          <h4>Incluye</h4>
+          <ul>
+            <li>Registro de productos.</li>
+            <li>Control de existencias.</li>
+            <li>Actualización de inventario.</li>
+            <li>Organización por categorías.</li>
+          </ul>
+          <h4>Colaboración</h4>
+          <ul>
+            <li>SPEC aporta base de datos, seguridad y soporte.</li>
+            <li>EcoTech aporta diseño intuitivo y adaptación ecológica.</li>
+          </ul>
+        </div>
+
+        <div class="card partner-card">
+          <h3>ES-004 Catálogo Digital</h3>
+          <p>
+            Catálogo interactivo para mostrar productos o servicios de manera profesional.
+          </p>
+          <h4>Incluye</h4>
+          <ul>
+            <li>Diseño por categorías.</li>
+            <li>Imágenes de productos.</li>
+            <li>Navegación sencilla.</li>
+            <li>Formato adaptable.</li>
+          </ul>
+          <h4>Colaboración</h4>
+          <ul>
+            <li>SPEC desarrolla el catálogo técnico y responsivo.</li>
+            <li>EcoTech aporta diseño gráfico y presentación visual.</li>
+          </ul>
+        </div>
+
+        <div class="card partner-card">
+          <h3>ES-005 Marketing Digital</h3>
+          <p>
+            Estrategias digitales para aumentar la visibilidad del negocio.
+          </p>
+          <h4>Incluye</h4>
+          <ul>
+            <li>Gestión de redes sociales.</li>
+            <li>Creación de contenido.</li>
+            <li>Publicidad básica.</li>
+            <li>Análisis de alcance.</li>
+          </ul>
+          <h4>Beneficio</h4>
+          <ul>
+            <li>Aumenta el alcance digital.</li>
+            <li>Fortalece la identidad sustentable del negocio.</li>
+          </ul>
+        </div>
+
+        <div class="card partner-card">
+          <h3>ES-006 Mantenimiento Web</h3>
+          <p>
+            Servicio enfocado en la actualización y mejora continua del sitio web.
+          </p>
+          <h4>Incluye</h4>
+          <ul>
+            <li>Actualización de contenido.</li>
+            <li>Corrección de errores.</li>
+            <li>Optimización básica.</li>
+            <li>Soporte técnico.</li>
+          </ul>
+          <h4>Colaboración</h4>
+          <ul>
+            <li>SPEC aporta seguridad, respaldo y monitoreo.</li>
+            <li>EcoTech mejora diseño, estética y experiencia de usuario.</li>
+          </ul>
+          <span class="price">Costo aproximado: $2,000 MXN</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="container">
+      <div class="contact-box">
+        <div>
+          <p class="section-title">Contacto</p>
+          <h2>Solicita información</h2>
+          <p class="section-description">
+            Cuéntanos qué servicio te interesa y nuestro equipo te ayudará a elegir la mejor solución digital.
+          </p>
+        </div>
+
+        <form id="contactForm">
+          <input type="text" id="nombre" placeholder="Nombre de la empresa" required />
+          <input type="email" id="correo" placeholder="Correo electrónico" required />
+          <textarea id="mensaje" placeholder="Servicio de interés"></textarea>
+          <button type="submit">Enviar solicitud</button>
+          <p id="mensajeForm"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 SPEC | Soluciones tecnológicas para impulsar tu negocio</p>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    const contactForm = document.getElementById("contactForm");
+    const mensajeForm = document.getElementById("mensajeForm");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+      });
+    });
+
+    contactForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById("nombre").value.trim();
+      const correo = document.getElementById("correo").value.trim();
+      const mensaje = document.getElementById("mensaje").value.trim();
+
+      if (nombre === "" || correo === "" || mensaje === "") {
+        mensajeForm.textContent = "Por favor, completa todos los campos.";
+        return;
+      }
+
+      mensajeForm.textContent = "Gracias. Tu solicitud fue registrada correctamente.";
+      contactForm.reset();
+    });
+  </script>
+
+</body>
+</html>
